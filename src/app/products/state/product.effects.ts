@@ -41,4 +41,18 @@ export class ProductEffects {
       )
     );
   });
+
+  deleteProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.deleteCurrentProduct),
+      concatMap(action =>
+        this.productService
+          .deleteProduct(action.currentProductId)
+          .pipe(
+            map(success => ProductActions.deleteCurrentProductSuccess(({deletedProductId : action.currentProductId}))),
+            catchError(error => of(ProductActions.deleteCurrentProductFail({error})))
+        )
+      )
+    );
+  });
 }

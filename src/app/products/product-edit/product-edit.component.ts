@@ -10,6 +10,7 @@ import { Store } from '@ngrx/store';
 import * as ProductActions from '../state/product.actions'
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { Actions } from '@ngrx/effects';
 
 @Component({
   selector: 'pm-product-edit',
@@ -108,10 +109,7 @@ export class ProductEditComponent implements OnInit {
   deleteProduct(product: Product): void {
     if (product && product.id) {
       if (confirm(`Really delete the product: ${product.productName}?`)) {
-        this.productService.deleteProduct(product.id).subscribe({
-          next: () => this.store.dispatch(ProductActions.clearCurrentProduct()),
-          error: err => this.errorMessage = err
-        });
+        this.store.dispatch(ProductActions.deleteCurrentProduct({ currentProductId : product.id}))
       }
     } else {
       // No need to delete, it was never saved
