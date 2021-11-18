@@ -134,6 +134,22 @@ export const productReducer = createReducer<ProductState>(
             ...state,
             products : listWithoutDeletedProduct
         }
+    }),
+
+    on(ProductActions.addProductFail, (state, action) => {
+        return {
+            ...state,
+            error: action.error
+        }
+    }),
+
+    on(ProductActions.addProductSuccess, (state, action) => {
+        const addedNewElementList = [ ...state.products, action.product]
+
+        return {
+            ...state,
+            products : addedNewElementList
+        }
     })
 
 

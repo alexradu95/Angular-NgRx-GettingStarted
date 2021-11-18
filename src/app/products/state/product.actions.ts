@@ -13,6 +13,12 @@ export const deleteCurrentProductSuccess = createAction('[Product] Delete Curren
 
 export const deleteCurrentProductFail = createAction('[Product] Delete Current Product Fail', props<{error: string}>());
 
+export const addProduct = createAction('[Product] Add Product', props<{product: Product}>());
+
+export const addProductSuccess = createAction('[Product] Add Product Success', props<{product: Product}>());
+
+export const addProductFail = createAction('[Product] Add Product Fail', props<{error: string}>());
+
 export const initializeCurrentProduct = createAction('[Product] Initialize Current Product');
 
 export const loadProducts = createAction('[Product] Load all products');

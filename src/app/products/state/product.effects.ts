@@ -55,4 +55,18 @@ export class ProductEffects {
       )
     );
   });
+
+  addProduct$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(ProductActions.addProduct),
+      concatMap(action =>
+        this.productService
+          .createProduct(action.product)
+          .pipe(
+            map(success => ProductActions.addProductSuccess(({ product : action.product }))),
+            catchError(error => of(ProductActions.addProductFail({error})))
+        )
+      )
+    );
+  });
 }
